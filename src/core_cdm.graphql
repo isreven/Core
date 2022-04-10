@@ -1,0 +1,172 @@
+scalar JSON
+scalar Date
+
+type Visualization {
+  Id: String!
+  Type: String 
+  Descriptor(select: [String]): JSON
+  DescriptorSchemaVersion: String
+  DescriptorRef: DescriptorRefType
+  Configurations: [Configuration]
+  Catalogs(QueryInput: QueryCatalogsInput): CatalogsResponse
+  BusinessApp: BusinessApp
+}
+
+type DescriptorRefType {
+  BaseURL: String
+  Path: String
+}
+
+type Configuration {
+  Id: String
+  Level: String
+  Settings: JSON
+}
+
+type Site {
+  Id: String!
+  Title: String
+  # BusinessApps: [BusinessApp] # 
+  Roles: [Role]
+  #WorkPageDrafts: [ WorkPageDraft ] 
+  Catalogs: [Catalog] 
+  Visualizations(QueryInput: QuerySiteVisualizationInput): VisualizationsResponse!
+  #WorkSpaces(QueryInput: Core_QueryWorkSpaceInput): [WorkSpace] # defintion in workSpace.graphql
+  #WorkPage(Id:String!): WorkPage # defintion in workSpace.graphql
+}
+
+type Role {
+  Id: String!
+  Title: String
+  Editable: Boolean
+  Catalogs: [Catalog]
+  BusinessApps: [BusinessApp]
+  Sites: [Site]
+  #WorkSpaces: [WorkSpace]
+}
+
+type Catalog {
+  Id: String
+  Title: String
+  Visualizations(QueryInput: QueryVisualizationInput): VisualizationsResponse
+  Roles: [Role]
+}
+
+type BusinessApp {
+  Id: String!
+  Descriptor(select: [String]): JSON
+  DescriptorSchemaVersion: String
+  Visualizations: [Visualization]
+  Roles: [Role]
+}
+
+type VisualizationsResponse {
+  totalCount: Int
+  nodes: [Visualization]
+}
+
+type RolesResponse {
+  totalCount: Int
+  nodes: [Role]
+}
+
+enum DeviceTypeSupport {
+  phone
+  tablet
+  desktop
+}
+
+input RoleFilter {
+  Title: [StringInput]
+  WorkSpaces: WorkSpacesCollectionInput
+}
+
+input VisualizationFilter {
+  Id: [IdInput]
+  Type: [IdInput]
+  DeviceTypes: [DeviceTypeFilterInput]
+}
+
+input DeviceTypeFilterInput {
+  includes: [DeviceTypeSupport]
+}
+
+input WorkSpacesCollectionInput {
+  any: WorkSpacesFilter
+}
+
+input WorkSpacesFilter {
+  Id: [String!]
+}
+
+input IdInput {
+  eq: ID
+  in: [ID!]
+}
+
+input StringInput {
+  eq: String
+  in: [String!]
+  contains: String
+  startsWith: String
+}
+
+input QueryRoleInput {
+  skip:Int
+  top:Int
+  filter: RoleFilter
+}
+
+input QueryUsedVisualizationsInput {
+  skip:Int
+  top:Int
+}
+
+input QueryCatalogsInput {
+  skip:Int
+  top:Int
+}
+
+input QueryVisualizationInput {
+  top:Int
+  skip:Int
+  filter: VisualizationFilter
+}
+
+input QuerySiteVisualizationInput {
+  skip:Int
+  top:Int
+  filter: VisualizationFilter
+}
+
+
+type CatalogsResponse {
+  totalCount: Int
+  nodes: [Catalog]
+}
+
+type Query {
+  # End-user scenario 
+  Site(Id: String!): Site
+  # Admin scenario *
+  Roles(QueryInput: QueryRoleInput): RolesResponse
+  # Admin scenario *
+  Visualizations(SiteId: String, QueryInput: QueryVisualizationInput): VisualizationsResponse
+  # Admin scenario *
+  Visualization(Id: String!): Visualization
+  # Admin scenario *
+  Catalogs(QueryInput: QueryCatalogsInput): CatalogsResponse
+  # *
+  getRolesOfSite(SiteId: String):[Role]
+
+  WorkPage(Id: String, vizsIds: [String]): WorkPage
+}
+
+type Mutation {
+  assignRolesToSite(SiteId: String!, RolesIds: [String]): Boolean
+}
+
+type WorkPage {
+  Id: String!
+  UsedVisualizations(QueryInput: QueryUsedVisualizationsInput): VisualizationsResponse
+}
