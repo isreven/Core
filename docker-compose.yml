@@ -1,0 +1,35 @@
+version: '3'
+services:
+  # portal-cf-graphql-cdm-core:
+  #   build:
+  #     context: .
+  #     dockerfile: DockerfileNode
+  #   depends_on:
+  #     - postgres
+  #   container_name: portal-cf-graphql-cdm-core
+  #   command: sh -c "/wait && npm run start:docker"
+  #   environment:
+  #     - WAIT_HOSTS=postgres:5432
+  #     - WAIT_HOSTS_TIMEOUT=300
+  #     - WAIT_SLEEP_INTERVAL=10
+  #     - WAIT_HOST_CONNECT_TIMEOUT=10
+  #   ports:
+  #     - 4001:4001
+  #   tty: true
+  #   volumes:
+  #     - ./src:/usr/src/app/src
+  #     - ./bin:/usr/src/app/bin
+  postgres:
+    image: postgres:9.6
+    container_name: postgres_cdm_core
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - 127.0.0.1:6432:5432
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "core_cdm_db_v4"
+volumes:
+  postgres-data:
+    driver: local 

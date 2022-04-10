@@ -1,0 +1,39 @@
+{
+  "name": "portal-cf-graphql-cdm-core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon --inspect src/index.js",
+    "start:dev": "cross-env NODE_ENV=standalone nodemon --inspect src/index.js",
+    "start:docker": "cross-env NODE_ENV=standalone nodemon src/index.js",
+    "migrate:docker": "cross-env NODE_ENV=standalone node --harmony src/database/schema-init.js init",
+    "lint": "eslint ./*.js"
+  },
+  "engines": {
+    "node": "^14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "keywords": [],
+  "author": "israel",
+  "license": "ISC",
+  "dependencies": {
+    "@graphql-tools/schema": "^7.0.0",
+    "@sap/xsenv": "3.1.1",
+    "@sap/xssec": "3.2.11",
+    "apollo-server": "3.5.0",
+    "cross-env": "7.0.3",
+    "dataloader": "^2.0.0",
+    "graphql": "15.8.0",
+    "graphql-fields": "^2.0.3",
+    "helmet": "4.6.0",
+    "knex": "^0.95.15",
+    "node-pg-migrate": "^6.2.1",
+    "nodemon": "^2.0.15",
+    "passport": "0.5.2",
+    "path": "0.12.7",
+    "pg": "8.7.1",
+    "portal-cf-shared-lib": "6.11.0-20220206075959"
+  },
+  "devDependencies": {}
+}

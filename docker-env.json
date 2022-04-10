@@ -1,0 +1,55 @@
+{
+  "PORT": 4001,
+  "DB_INSTANCE_NAME": "postgres_cdm_core",
+  "CF_APP_LOG_LEVEL": "debug",
+  "VCAP_SERVICES": {
+    "xsuaa": [
+      {
+        "label": "xsuaa",
+        "provider": null,
+        "plan": "broker",
+        "name": "portal-xsuaa-broker",
+        "tags": [
+          "xsuaa"
+        ],
+        "instance_guid": "ed169540-ed6c-49fc-ac1b-7f1c943f97f8",
+        "instance_name": "portal-xsuaa-broker",
+        "binding_guid": "11bc63d2-64e9-4250-a358-6d0b1b8abb72",
+        "binding_name": null,
+        "credentials": {
+          "tenantmode": "dedicated",
+          "sburl": "https://internal-xsuaa.authentication.sap.hana.ondemand.com",
+          "subaccountid": "c6dd9b8c-ae27-492b-ba7b-085bd1e79378",
+          "credential-type": "instance-secret",
+          "clientid": "sb-portal-cf-service-ytpiagp!b15018",
+          "xsappname": "portal-cf-service-ytpiagp!b15018",
+          "clientsecret": "LvShWg6/YG865lIOPgU6g1LilfI=",
+          "url": "https://ytp.authentication.sap.hana.ondemand.com",
+          "uaadomain": "authentication.sap.hana.ondemand.com",
+          "trustedclientidsuffix": "|portal-cf-service-ytpiagp!b15018",
+          "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw4rcjmy/pTAl419MGN0fzrJCW3PDZdYu3FUIa8Q2FRDkS0V+W6qRTiCdz80KRFXnuBtmLuKUx5ZhzkHUbjXtQhU+OejrrjTEG9f63y7z1z4HicyvbbgtWT5YfD6PR20V79CAMfddzhR1z3iP6QHOLgy/6dLPaGD2YKnxLWKgXNw3AowzHpIWsL1L3GyBE6eJzqScUGML1PWSSsEUtPVLwdYwmDkyLiXW+O8B43qCEc2wkrp1Iz3MuYoEGVrgyUTDaRMyJOJkuVlSkn5TuW2XnH+HEefq7MtFAWGQ00ziV3gQNWdERpuP8+qrswB94sciwLCdzl09d1ZaMkcMeoEaSQIDAQAB-----END PUBLIC KEY-----",
+          "apiurl": "https://api.authentication.sap.hana.ondemand.com",
+          "identityzone": "ytp",
+          "identityzoneid": "c6dd9b8c-ae27-492b-ba7b-085bd1e79378",
+          "tenantid": "c6dd9b8c-ae27-492b-ba7b-085bd1e79378",
+          "zoneid": "c6dd9b8c-ae27-492b-ba7b-085bd1e79378"
+        },
+        "syslog_drain_url": null,
+        "volume_mounts": []
+      }
+    ],
+    "postgres_cdm_core" : [
+      {
+        "credentials": {
+          "hostname": "localhost",
+          "dbname": "core_cdm_db_v4",
+          "port": "6432",
+          "password": "postgres",
+          "username": "postgres"
+        },
+        "label": "postgres_cdm_core",
+        "name": "postgres_cdm_core"
+      }
+    ]
+  }
+}
